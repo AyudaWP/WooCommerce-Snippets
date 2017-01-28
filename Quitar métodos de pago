@@ -14,7 +14,7 @@ function is_product_in_cart( $prodids ){
 function payment_gateway_disable_product( $available_gateways ) {
 	global $woocommerce;
 	//print_r( $available_gateways );
-	$prodids=array(14,15);
+	$prodids=array(14,15); //CAMBIA AQUI LOS IDS POR LOS DE TUS PRODUCTOS
 	if ( isset( $available_gateways['paypal'] ) && is_product_in_cart( $prodids ) ) {
 	    unset(  $available_gateways['paypal'] );
 	}
