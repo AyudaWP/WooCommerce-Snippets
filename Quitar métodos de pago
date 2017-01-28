@@ -1,0 +1,23 @@
+//Primero comprobamos si el producto esta disponible o no en el carrito.
+function is_product_in_cart( $prodids ){
+	$product_in_cart = false;
+	foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+		$product = $cart_item['data'];
+    		if ( in_array( $product->id, $prodids ) ) {
+	        	$product_in_cart = true;
+		}
+            
+	}
+	return $product_in_cart;
+}
+//  Luego ya desactivamos la pasarela que queramos por ID de producto. Cambia los números de ID en el array $prodids
+function payment_gateway_disable_product( $available_gateways ) {
+	global $woocommerce;
+	//print_r( $available_gateways );
+	$prodids=array(14,15);
+	if ( isset( $available_gateways['paypal'] ) && is_product_in_cart( $prodids ) ) {
+	    unset(  $available_gateways['paypal'] );
+	}
+	return $available_gateways;
+}
+add_filter( 'woocommerce_available_payment_gateways', 'payment_gateway_disable_product' );
