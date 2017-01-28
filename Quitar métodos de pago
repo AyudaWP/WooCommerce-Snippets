@@ -1,4 +1,10 @@
-//Primero comprobamos si el producto esta disponible o no en el carrito.
+/* Quitar métodos de pago
+* Quita pasarelas de pago disponibles en cada producto
+* Añade este codigo a tu plugin de funciones o el archivo functions.php del tema activo
+* En el ejemplo se desactivan las pasarelas Paypal (paypal), contrareembolso (cod) y tranferencia (bacs)
+* Cambia los IDs de producto de ejemplo en el array $prodids, p.ej. $prodids=array(15,30);
+*/
+//Comprobamos si el producto esta disponible o no en el carrito.
 function is_product_in_cart( $prodids ){
 	$product_in_cart = false;
 	foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
@@ -10,18 +16,18 @@ function is_product_in_cart( $prodids ){
 	}
 	return $product_in_cart;
 }
-//  Luego ya desactivamos la pasarela que queramos - en el ejemplo Paypal (paypal), Contrareembolso (cod) y transferencia bancaria (bacs) por ID de producto. Cambia los números de ID en el array $prodids
+//Desactivamos (unset) la pasarela que queramos por ID de producto
 function payment_gateway_disable_product( $available_gateways ) {
 	global $woocommerce;
 	//print_r( $available_gateways );
-	$prodids=array(14,15); //CAMBIA AQUI LOS IDS POR LOS DE TUS PRODUCTOS
+	$prodids=array(15,30);
 	if ( isset( $available_gateways['paypal'] ) && is_product_in_cart( $prodids ) ) {
 	    unset(  $available_gateways['paypal'] );
 	}
-	if ( isset( $available_gateways['cod'] ) && is_product_in_cart( $prodids ) ) {
+    	if ( isset( $available_gateways['cod'] ) && is_product_in_cart( $prodids ) ) {
 	    unset(  $available_gateways['cod'] );
 	}
-	if ( isset( $available_gateways['bacs'] ) && is_product_in_cart( $prodids ) ) {
+    	if ( isset( $available_gateways['bacs'] ) && is_product_in_cart( $prodids ) ) {
 	    unset(  $available_gateways['bacs'] );
 	}
 	return $available_gateways;
