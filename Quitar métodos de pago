@@ -10,13 +10,19 @@ function is_product_in_cart( $prodids ){
 	}
 	return $product_in_cart;
 }
-//  Luego ya desactivamos la pasarela que queramos por ID de producto. Cambia los números de ID en el array $prodids
+//  Luego ya desactivamos la pasarela que queramos - en el ejemplo Paypal (paypal), Contrareembolso (cod) y transferencia bancaria (bacs) por ID de producto. Cambia los números de ID en el array $prodids
 function payment_gateway_disable_product( $available_gateways ) {
 	global $woocommerce;
 	//print_r( $available_gateways );
 	$prodids=array(14,15); //CAMBIA AQUI LOS IDS POR LOS DE TUS PRODUCTOS
 	if ( isset( $available_gateways['paypal'] ) && is_product_in_cart( $prodids ) ) {
 	    unset(  $available_gateways['paypal'] );
+	}
+	if ( isset( $available_gateways['cod'] ) && is_product_in_cart( $prodids ) ) {
+	    unset(  $available_gateways['cod'] );
+	}
+	if ( isset( $available_gateways['bacs'] ) && is_product_in_cart( $prodids ) ) {
+	    unset(  $available_gateways['bacs'] );
 	}
 	return $available_gateways;
 }
