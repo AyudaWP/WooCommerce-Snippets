@@ -1,0 +1,32 @@
+/*
+ * Oculta pasarelas de pago si un producto de una categoría está en el carrito.
+ *  - Nota: Si se añaden varios productos y solo uno es de la categoría tampoco aparece la pasarela ocultada
+ * Uso:
+ *    payment_NAME : Nombre de las pasarelas de pago estandar de WooCommerce - paypal, cod, bacs y cheque
+ *    category_ID :  El ID de la categoría para la que se ocultar la pasarela de pago. El ID lo tienes haciendo clic en la categoria en Productos -> Categorias, se mostrará el "tag_ID" en la barra de direcciones
+ */
+function filter_gateways($gateways){
+
+$payment_NAME = 'paypal'; // <--------------- cambia aquí el nombre de pasarela
+$category_ID = '15';  // <----------- cambia aquí el ID de categoría
+ global $woocommerce;
+
+ foreach ($woocommerce->cart->cart_contents as $key => $values ) {
+    // Se obtienen los terminos, p.ej. lista de categorias usando el ID del producto
+    $terms = get_the_terms( $values['product_id'], 'product_cat' );
+    // Como un producto puede tener varias categorias tenemos que iterar la lista de categorias del producto
+    foreach ($terms as $term) {
+        if($term->term_id == $category_ID){
+               unset($gateways[$payment_NAME]);
+                   // Si quieres ocultar otra pasarela añadela aqui así: unset($gateways['cod']);
+                    break;
+          }
+        break;
+    }
+
+   }
+    return $gateways;
+
+}
+
+add_filter('woocommerce_available_payment_gateways','filter_gateways');
