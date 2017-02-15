@@ -1,0 +1,4 @@
+//Cambiar color de fondo del aviso global en la tienda
+.woocommerce-demo-store .demo_store {
+   background-color: red; //cambia el color a tu gusto o ponlo en hexadecimal p.ej. #7C4360
+}
