@@ -1,0 +1,4 @@
+//Cambia color de fondo cartel oferta
+.woocommerce span.onsale, .woocommerce-page span.onsale {
+background: #96588A; //cambia el valor hex del color o ponlo p.ej. red
+}
