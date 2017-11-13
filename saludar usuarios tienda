@@ -1,14 +1,14 @@
-// Crea un shortcode de bienvenido a la tienda
-function ayudawp_welcome_msg () {
-$current_user = wp_get_current_user(); //obtenemos la informacion del usuario
-if ( is_user_logged_in () && ( $current_user->user_firstname ) ) { //usuarios conectados con nombre de pila registrado
-return '<p>Hola de nuevo ' . $current_user->user_firstname . '. ¡Gracias por tu fidelidad!'; //el mensaje
+/* Create shortcode to welcome logged in and logged out store visitors */
+function ayudawp_welcome_shortcode () {
+$current_user = wp_get_current_user(); //get the current usr info
+if ( is_user_logged_in () && ( $current_user->user_firstname ) ) { //logged in users with registered first name
+return sprintf( __( '<p>Welcome back ' . $current_user->user_firstname . '. Thank you for coming back!','welcome-shortcode' ) ); //message
 }
-elseif ( is_user_logged_in () && ( ! $current_user->user_firstname ) ) { //usuarios conectados sin nombre de pila registrado
-return '<p>Hola de nuevo ' . $current_user->nickname . '. ¡Gracias por tu fidelidad!'; //el mensaje
+elseif ( is_user_logged_in () && ( ! $current_user->user_firstname ) ) { //logged in users without registered first name
+return sprintf( __( '<p>Welcome back ' . $current_user->nickname . '. Thank you for coming back!','welcome-shortcode' ) ); //message
 }
 else {
-return '¡Hola, gracias por visitarnos! Haz clic <a href = "/my-account/">aquí</a> para crear una cuenta o acceder.'; //para nuevos usuarios
+return sprintf( __( 'Welcome! Click <a href = "%s">here</a> to create an account or log in.', 'welcome-shortcode' ),'my-account' ); //for logged out visitors
 }
 }
-add_shortcode('bienvenida', 'ayudawp_welcome_msg');
+add_shortcode('bienvenida', 'ayudawp_welcome_shortcode');
