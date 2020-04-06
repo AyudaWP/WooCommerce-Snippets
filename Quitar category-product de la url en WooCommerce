@@ -21,7 +21,7 @@ add_filter('request', function( $vars ) {
 });
 
 //PASO 2
-En el campo de product-category de los enlaces permanentes de los ajustes de WordPress pon un punto (.)
+En el campo de la base de categoría del producto (product-category) de los enlaces permanentes de los ajustes de WordPress pon un punto (.)
 
 //PASO 3
 Guarda los cambios en los ajustes de enlaces permanentes
