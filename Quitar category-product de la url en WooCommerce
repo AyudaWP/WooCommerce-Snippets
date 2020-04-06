@@ -1,4 +1,6 @@
 /* Quitar category-product de la URL en WooCommerce */
+
+//PASO 1, METE ESTO EN EL FUNCTIONS.PHP DEL TEMA ACTIVO
 add_filter('request', function( $vars ) {
    global $wpdb;
    if( ! empty( $vars['pagename'] ) || ! empty( $vars['category_name'] ) || ! empty( $vars['name'] ) || ! empty( $vars['attachment'] ) ) {
@@ -17,3 +19,9 @@ add_filter('request', function( $vars ) {
    }
    return $vars;
 });
+
+//PASO 2
+En el campo de product-category de los enlaces permanentes de los ajustes de WordPress pon un punto (.)
+
+//PASO 3
+Guarda los cambios en los ajustes de enlaces permanentes
